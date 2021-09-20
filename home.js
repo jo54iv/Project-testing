@@ -251,7 +251,7 @@ var home = {
     // });
 
     mapboxgl.accessToken =
-      'pk.eyJ1IjoiMzIxZGV2IiwiYSI6ImNrN2wwOGxndjAybzUzZ28zczNhMjBramQifQ.9XQu2_-GW7nOqaTD3bOfAw';
+      'this-is-where-the-token-key-goes';
     let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
       navigator.userAgent,
     );
