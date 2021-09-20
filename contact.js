@@ -9,7 +9,7 @@ let contact = {
     form: () => {
 
         grecaptcha.ready(function() {
-            grecaptcha.execute('6LeYy-wUAAAAACUVu-rqJUC1LZ-5wrI1JhZTxmTN', {action: 'contact_form'}).then(function(token) {
+            grecaptcha.execute('only-for-production-key-will-go-here', {action: 'contact_form'}).then(function(token) {
                 document.getElementById('g-recaptcha-response').value = token;
             });
         });
