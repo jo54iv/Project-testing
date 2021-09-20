@@ -1,0 +1,161 @@
+{% extends "base.twig" %}
+
+{% block css %}
+{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" integrity="sha256-PZLhE6wwMbg4AB3d35ZdBF9HD/dI/y4RazA3iRDurss=" crossorigin="anonymous" /> #}
+{% endblock %}
+
+{% block body_id %}contact{% endblock %}
+
+{% block content %}
+
+<div style="position:absolute; left:-9999px; top: -9999px;">
+    <label for="pardot_extra_field">Comments</label>
+    <input type="text" id="pardot_extra_field" name="pardot_extra_field">
+</div>
+
+<section class="intro">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="heading">
+					<h1>{{post.title}}</h1>
+					<div class="message">{{ post.intro }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="bottom">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-4 offset-lg-1">
+				<form id="contact-form" action="https://go.pardot.com/l/797643/2020-01-02/5pgx" method="post">
+					<input id="g-recaptcha-response" type="hidden" name="token">
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="firstname">First Name<sup>*</sup></label>
+							<input area-label="First Name" type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required>
+						</div>
+
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="lastname">Last Name<sup>*</sup></label>
+							<input area-label="Last Name" type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required>
+						</div>
+
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="email-address">Email Address<sup>*</sup></label>
+							<input area-label="Email Address" type="text" class="form-control" id="email-address" name="email" placeholder="Email Address"
+								required>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="phone-number">Phone Number<sup>*</sup></label>
+							<input area-label="Phone Number" type="text" class="form-control" id="phone-number" name="phone" placeholder="Phone Number"
+								required>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="zip-code">Zip Code<sup>*</sup></label>
+							<input area-label="Zip Code" type="text" class="form-control" id="zip-code" name="zip" placeholder="Zip Code" required>
+						</div>
+					</div>
+
+					<div class="form-row">
+
+						<div class="form-group col-md-12">
+							<label for="comments">Comments</label>
+							<textarea area-label="Comments" name="comments" id="comments" name="description" class="form-control" rows="5"></textarea>
+						</div>
+					</div>
+
+					<div class="form-row">
+
+						<div class="form-group col-md-12">
+							<label for="interests">I'm Interested in<sup>*</sup>:</label>
+							<select area-label="I'm interested in" id="interests" name="interest" multiple size="1" required>
+								<option value="Buying a home">Buying a home</option>
+								<option value="Renting an apartment">Renting an apartment</option>
+								<option value="Bringing my business to Lake Nona">Bringing my business to Lake Nona</option>
+								<option value="Events in Lake Nona">Events in Lake Nona</option>
+								<option value="Visiting Lake Nona">Visiting Lake Nona</option>
+								<option value="General Information">General Information</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-row justify-content-between">
+						<div class="form-group col-md-6">
+							<div id="clear-form">CLEAR</div>
+						</div>
+
+						<div class="form-group col-md-6 justify-content-center justify-content-md-start d-flex">
+							<button name="SEND MESSAGE" class="button small">SEND MESSAGE</button>
+						</div>
+
+					</div>
+
+
+				</form>
+			</div>
+			<div class="col-lg-5 offset-lg-1">
+				<div class="information">
+
+
+					<div class="center-wrap">
+						<div class="title">{{post.meta('information').title}}</div>
+						<ul class="contacts">
+							<li class="address">
+								<div class="contact">
+									<a title="{{post.meta('information').address.title}}" href="https://www.google.com/maps/search/?api=1&query={{post.meta('information').address.title}}+{{post.meta('information').address.street}}+{{post.meta('information').address.city}}+{{post.meta('information').address.state}}" target="_blank">
+									{{post.meta('information').address.street}}<br><span>{{post.meta('information').address.city}},
+										{{post.meta('information').address.state}},
+										{{post.meta('information').address.country}}</span></a></div>
+							</li>
+							<li class="phone">
+								<div class="contact"><a
+										title="{{post.meta('information').phone}}"
+										href="tel:+{{post.meta('information').phone}}">{{post.meta('information').phone}}</a>
+								</div>
+							</li>
+							<li class="mail">
+								<div class="contact"><a
+										title="{{post.meta('information').email}}"
+										href="mailto:{{post.meta('information').email}}">{{post.meta('information').email}}</a>
+								</div>
+							</li>
+							<li class="clock">
+								<div class="contact">{{post.meta('information').hours}}</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div id="thanks-popup" class="contact-popup mfp-hide">
+	<h1>Thank You!</h1>
+	<p>{{ post.meta('success_message') }}</p>
+</div>
+
+<div id="error-popup" class="contact-popup mfp-hide">
+	<h1>Error</h1>
+	<p>{{ post.meta('error_message') }}</p>
+</div>
+
+{% endblock %}
+
+{% block js %}
+{# <script src="https://www.google.com/recaptcha/api.js?render=6LeYy-wUAAAAACUVu-rqJUC1LZ-5wrI1JhZTxmTN"></script>
+<script src="{{ site.theme.link }}/static/js/plugins/vanilla-select/vanillaSelectBox.js"></script> #}
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js" integrity="sha256-P93G0oq6PBPWTP1IR8Mz/0jHHUpaWL0aBJTKauisG7Q=" crossorigin="anonymous"></script> #}
+{# <script src="{{ site.theme.link }}/static/dist/js/lakenona/contact.js"></script> #}
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{# see `archive.twig` for an alternative strategy of extending templates #}
+{% extends "base.twig" %}
+
+{% block body_id %}search{% endblock %}
+
+{% block title %}Search - {{site.title}}{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+
+			{% if TimberPost(post).custom is empty %}
+
+			<div class="heading">
+				<h1 class="uppercase">No Results</h1>
+			</div>
+
+			<div class="intro">
+				<h2>Here are some search tips if you'd like to try again:</h2>
+				<ul>
+					<li>Remember to check your spelling</li>
+					<li>Try a similar but different search term</li>
+				</ul>
+			</div>
+			{% else %}
+
+			<div class="heading">
+
+				<div class="title">Showing results for:</div>
+				<div class="term">{{ get.s }}</div>
+			</div>
+			{% endif %}
+
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-lg-8 col-md-12">
+			<div id="results">
+
+			</div>
+			<button id="load-more" name="Load More" alt="Load More" class="button d-none">Load More</button>
+		</div>
+	</div>
+</div>
+
+<script id="post-template" type="text/x-handlebars-template">
+	<div class="post {{ '{{post.post_type}}' }} animated">
+		{{ '{{#ifevent post.post_type}}' }}
+		<div class="date-box">
+			<div class="day">{{ '{{#getDay}}{{post.fields.date_time.value}}{{/getDay}}' }}</div>
+			<div class="month">{{ '{{#getMonth}}{{post.fields.date_time.value}}{{/getMonth}}' }}</div>
+		</div>
+		{{ '{{/ifevent}}' }}
+        <div class="row">
+            <div class="col-md-6">
+				<div class="featured-image">
+					<a href="{{ '{{post.post_url}}' }}">
+						<img alt="{{ '{{post.post_title}}' }}" srcset="{{ '{{post.srcset}}' }}">
+					</a>
+				</div>
+            </div>
+            <div class="col-md-6">
+				<h2><a title="{{ post.post_title }}" href="{{ '{{post.post_url}}' }}">{{ '{{post.post_title}}' }}</a></h2>
+				{{ '{{#ifevent post.post_type}}' }}
+				<h3>{{ '{{#formatEventDate}}{{post.fields.date_time.value}}{{/formatEventDate}}' }} <span class="time">{{ '{{#formatEventTime}}{{post.fields.date_time.value}}{{/formatEventTime}}' }}</span></h3>
+				{{ '{{/ifevent}}' }}
+				<p class="excerpt">{{ '{{#excerpt}}{{post.post_excerpt}}{{/excerpt}}' }}</p>
+				{{ '{{#ifevent post.post_type}}' }}
+				<button class="button small calendar-btn" data-subject="{{ '{{post.post_title}}' }}" data-date="{{ '{{post.fields.date_time.value}}' }}">Add To Cal</button>
+				{{ '{{/ifevent}}' }}
+
+				{{ '{{#ifplace post.post_type}}' }}
+				<a href="{{ 'https://www.google.com/maps/search/?api=1&query={{post.address_title}}+{{post.address_street}}+{{post.address_city}}+{{post.address_state}}' }}"
+					title="{{ '{{post.address_title}}' }}"
+				   	class="address" target="_blank">
+					{{ '{{#if post.address_title}}' }}
+					<div class="title">{{ '{{post.address_title}}' }}</div>
+					{{ '{{/if}}' }}
+					<div class="detail">{{ '{{post.address_street}}' }},<br>{{ '{{post.address_city}}' }}, {{ '{{post.address_state}}' }}
+						{{ '{{post.address_zip}}' }}</div>
+				</a>
+				{{ '{{/ifplace}}' }}
+            </div>
+        </div>
+      
+    </div>
+  </script>
+
+{% endblock %}
+
+{% block js %}
+{# <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script> #}
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script> #}
+{# <script src="{{ site.theme.link }}/static/dist/js/lakenona/search.js"></script> #}
+{% endblock %}

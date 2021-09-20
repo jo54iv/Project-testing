@@ -1,0 +1,13 @@
+{% if fields.gallery|length > 0 %}
+<section id="{{block['id']}}" class="block-story-gallery">
+	<div class="slider">
+			{% for item in fields.gallery %}
+			<div class="slide">
+				<div class="background">
+					<img srcset="{{ item.srcset }}" alt="{{item.image.alt}}">
+				</div>
+			</div>
+			{% endfor %}
+	</div>
+</section>
+{% endif %}

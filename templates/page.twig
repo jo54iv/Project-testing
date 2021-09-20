@@ -1,0 +1,17 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="container post-type-{{post.post_type}}" id="post-{{post.ID}}">
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<div class="heading">
+				<h1>{{post.title}}</h1>
+				<div class="intro">{{ post.intro }}</div>
+			</div>
+			<div class="article-body">
+				{{post.content}}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

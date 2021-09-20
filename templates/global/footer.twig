@@ -1,0 +1,68 @@
+<footer>
+    <div class="container d-none d-lg-block">
+        <div class="row align-items-center">
+            <div class="col-md-12 d-flex">
+
+                <ul class="footer-menu">
+                    {% for item in footer_menu.items %}            
+                        {% if '?' in item.link %}
+                        {% else %}
+                            <li class="nav-main-item {{ item.classes|join(' ') }}">
+                                <a title="{{ item.title }}" class="nav-main-link" href="{{ item.link }}">{{ item.title }}</a>
+                            </li>            
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center">
+                <a href="{{site.link}}" title="{{ site.title }}" class="logo">{{option.logo.url|contents}}</a>
+
+                <div class="copyright">{{ option.footer.copyright }} {{"now"|date('Y')}}</div>
+
+                {% if option.footer.social|length > 0 %}
+                <div class="social">
+                    {% for item in option.footer.social %}
+                        <a title="{{item.title}}" href="{{item.link.url}}" target="{{ item.link.target ? item.link.target : '_self' }}">{{item.icon.url|contents}}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+
+    </div>
+    <div class="container d-lg-none">
+        <div class="row">
+            <div class="col-6">
+                <ul class="footer-menu">
+                    {% for item in footer_menu.items %}
+                    <li class="nav-main-item {{ item.classes|join(' ') }}">
+                        <a title="{{item.title}}" class="nav-main-link" href="{{ item.link }}">{{ item.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-6">{% if option.footer.social|length > 0 %}
+                <div class="social d-flex flex-wrap justify-content-center">
+                    {% for item in option.footer.social %}
+                        <a title="{{item.title}}" href="{{item.link.url}}" target="{{ item.link.target ? item.link.target : '_self' }}">{{item.icon.url|contents}}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-12 d-flex flex-column align-items-center">
+                <a title="Lake Nona" href="{{site.link}}" class="logo">{{ option.logo.url|contents }}</a>
+                <div class="copyright">{{ option.footer.copyright }} {{ "now"|date('Y') }}</div>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,550 @@
+{% extends "base.twig" %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/css/datepicker.min.css" integrity="sha256-q0wZgzQ6Ru67x+pIe9IAztrnlHNHyZui3BMwqUYDnpI=" crossorigin="anonymous" />
+{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplebar/5.1.0/simplebar.min.css" integrity="sha256-pdzBd0Y/jQT2j/dCgWAR0/KOwvzn+gwZ+hYxU6+4Uw8=" crossorigin="anonymous" /> #}
+{% endblock %}
+
+{% block body_id %}home{% endblock %}
+
+{% block content %}
+<header>
+    <div class="slider">
+        {% if post.meta('discover').header %}
+        <div class="slide is-active" data-cat="discover">
+            <div class="image" title="Discover" style="background-image: url({{Image(post.meta('discover').header).src}})"></div>
+        </div>
+        {% endif %}
+        {% if post.meta('live').header %}
+        <div class="slide"  data-cat="live">
+            <div class="image" title="Live" style="background-image: url({{Image(post.meta('live').header).src}})"></div>
+        </div>
+        {% endif %}
+        {% if post.meta('work').header %}
+        <div class="slide"  data-cat="work">
+            <div class="image" title="Work" style="background-image: url({{Image(post.meta('work').header).src}})"></div>
+        </div>
+        {% endif %}
+        {% if post.meta('stay').header %}
+        <div class="slide" data-cat="stay">
+            <div class="image" title="Stay" style="background-image: url({{Image(post.meta('stay').header).src}})"></div>
+        </div>
+        {% endif %}
+        {% if post.meta('play').header %}
+        <div class="slide" data-cat="play">
+            <div class="image" title="Play" style="background-image: url({{Image(post.meta('play').header).src}})"></div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="category-bar">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    
+                    <div class="wrap">
+                        <div class="category-slider">
+                            <div data-cat="discover">Discover</div>
+                            <div data-cat="live">Live</div>
+                            <div data-cat="work">Work</div>
+                            <div data-cat="stay">Stay</div>
+                            <div data-cat="play">Play</div>
+                        </div>
+                        <ul>
+                            <div class="active-bar"></div>
+                            <li data-cat="discover">Discover</li>
+                            <li data-cat="live">Live</li>
+                            <li data-cat="work">Work</li>
+                            <li data-cat="stay">Stay</li>
+                            <li data-cat="play">Play</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<section class="intro">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-8">
+                <div class="intro-slider">
+                    <div class="wrap" data-cat="discover">
+                        <h1>{{post.meta('discover').title}}</h1>
+                        {{post.meta('discover').message}}
+                    </div>
+                    <div class="wrap" data-cat="live">
+                        <h1>{{post.meta('live').title}}</h1>
+                        {{post.meta('live').message}}
+                    </div>
+                    <div class="wrap" data-cat="work">
+                        <h1>{{post.meta('work').title}}</h1>
+                        {{post.meta('work').message}}
+                    </div>
+                    <div class="wrap" data-cat="stay">
+                        <h1>{{post.meta('stay').title}}</h1>
+                        {{post.meta('stay').message}}
+                    </div>
+                    <div class="wrap" data-cat="play">
+                        <h1>{{post.meta('play').title}}</h1>
+                        {{post.meta('play').message}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="filters" class="filter-bar">
+    <div class="container">
+        <div class="row m-0">
+            <div class="filter-btn active" data-view="list">
+                <img class="icon svg list"  src="{{ site.theme.link }}/static/img/global/icon-list.svg" title="List Icon" alt="List Icon">
+                <div class="title">LIST</div>
+            </div>
+            <div class="filter-btn" data-view="map">
+                <img class="icon svg map"  src="{{ site.theme.link }}/static/img/global/icon-pin.svg" title="Map Icon" alt="Map Icon">
+                <div class="title">MAP</div>
+            </div>
+            <div class="filter-btn" data-view="events">
+                <img class="icon svg events"  src="{{ site.theme.link }}/static/img/global/icon-calendar.svg" title="Calendar Icon" alt="Calendar Icon">
+                <div class="title">EVENTS</div>
+            </div>
+
+            <div class="filter-btn filters" data-view="filters">
+                <img class="icon svg menu"  src="{{ site.theme.link }}/static/img/global/icon-filter.svg" title="Filter Icon" alt="Filter Icon">
+                <div class="title">FILTER</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="tags">
+    <div class="container">
+        <div class="row justify-content-center"></div>
+    </div>
+</div>
+
+<section id="views">
+    <div id="list" class="slide container-fluid is-showing">
+        <section class="featured-posts" >
+            <div class="featured-slider container" data-cat="discover">
+                {% for fpost in post.meta('discover').featured %}
+                <div class="slide container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="image-box">
+                                <div class="image" style="background-image: url({{TimberPost(fpost.post).thumbnail.src('large')}});">
+                                    <a href="{{ fn('get_permalink', TimberPost(fpost.post).id) }}"></a>
+                                    {% if fpost.post.post_type == 'event'%}
+                                    <div class="date-box">
+                                        <div class="day">{{ fpost.post.fields.date_time.value|date("d") }}</div>
+                                        <div class="month">{{ post.fields.date_time.value|date("M") }}</div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="content">
+
+                                <h2><a href="{{ fn('get_permalink', fpost.post.id) }}">{{fpost.post.post_title}}</a></h2>
+                                <p class="excerpt">{{fpost.post.post_content|excerpt(24,'')}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="featured-slider container d-none" data-cat="live">
+                {% for fpost in post.meta('live').featured %}
+                
+                <div class="slide container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="image-box">
+                                <div class="image" style="background-image: url({{TimberPost(fpost.post).thumbnail.src('large')}});">
+                                    <a href="{{ fn('get_permalink', TimberPost(fpost.post).id) }}"></a>
+                                    {% if TimberPost(fpost.post).post_type == 'event'%}
+                                    <div class="date-box">
+                                        <div class="day">{{ TimberPost(fpost.post).fields.date_time.value|date("d") }}</div>
+                                        <div class="month">{{ post.fields.date_time.value|date("M") }}</div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="content">
+
+                                <h2><a href="{{ fn('get_permalink', TimberPost(fpost.post).id) }}">{{TimberPost(fpost.post).post_title}}</a></h2>
+                                <p class="excerpt">{{TimberPost(fpost.post).post_content|excerpt(24,'')}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="featured-slider container d-none" data-cat="work">
+                {% for fpost in post.meta('work').featured %}
+                <div class="slide container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="image-box">
+                                <div class="image" style="background-image: url({{TimberPost(fpost.post).thumbnail.src('large')}});">
+                                   <a href="{{ fn('get_permalink', TimberPost(fpost.post).id) }}"></a>
+                                    {% if TimberPost(fpost.post).post_type == 'event'%}
+                                    <div class="date-box">
+                                        <div class="day">{{ TimberPost(fpost.post).fields.date_time.value|date("d") }}</div>
+                                        <div class="month">{{ post.fields.date_time.value|date("M") }}</div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="content">
+
+                                <h2><a href="{{ fn('get_permalink', TimberPost(fpost.post).id) }}">{{TimberPost(fpost.post).post_title}}</a></h2>
+                                <p class="excerpt">{{TimberPost(fpost.post).post_content|excerpt(24,'')}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="featured-slider container d-none" data-cat="stay">
+                {% for fpost in post.meta('stay').featured %}
+                <div class="slide container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="image-box">
+                                <div class="image" style="background-image: url({{TimberPost(fpost.post).thumbnail.src('large')}});">
+                                    <a href="{{ fn('get_permalink', TimberPost(fpost.post).id) }}"></a>
+                                    {% if TimberPost(fpost.post).post_type == 'event'%}
+                                    <div class="date-box">
+                                        <div class="day">{{ TimberPost(fpost.post).fields.date_time.value|date("d") }}</div>
+                                        <div class="month">{{ post.fields.date_time.value|date("M") }}</div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="content">
+
+                                <h2><a href="{{ fn('get_permalink', TimberPost(fpost.post).id) }}">{{TimberPost(fpost.post).post_title}}</a></h2>
+                                <p class="excerpt">{{TimberPost(fpost.post).post_content|excerpt(24,'')}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="featured-slider container d-none" data-cat="play">
+                {% for fpost in post.meta('play').featured %}
+                <div class="slide container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="image-box">
+                                <div class="image" title="{{TimberPost(fpost.post).post_title}}" style="background-image: url({{TimberPost(TimberPost(fpost.post)).thumbnail.src('large')}});">
+                                    <a href="{{ fn('get_permalink', TimberPost(fpost.post).id) }}"></a>
+                                    {% if TimberPost(fpost.post).post_type == 'event'%}
+                                    <div class="date-box">
+                                        <div class="day">{{ TimberPost(fpost.post).fields.date_time.value|date("d") }}</div>
+                                        <div class="month">{{ post.fields.date_time.value|date("M") }}</div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="content">
+
+                                <h2><a href="{{ fn('get_permalink', TimberPost(fpost.post).id) }}">{{TimberPost(fpost.post).post_title}}</a></h2>
+                                <p class="excerpt">{{TimberPost(fpost.post).post_content|excerpt(24,'')}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <div class="results loading"></div>
+        <button id="load-more" name="Load More" class="button d-none">Load More</button>
+    </div>
+    <div id="map" class="slide container-fluid">
+        <div class="row">
+            <div id="map-list" class="d-none d-lg-block">
+                <div class="results">
+                    <button id="load-more-map" class="button">Load More</button>
+                </div>
+                
+            </div>
+            <div class="map-wrap">
+                <div id="mapbox"></div>
+            </div>
+        </div>
+    </div>
+    <div id="events" class="slide container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 d-none d-lg-block"><div class="datepicker-here d-none d-md-block" data-language='en'></div></div>
+                <div class="col-lg-7 offset-lg-1">
+                    <div id="events-list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script id="events-template" type="text/x-handlebars-template">
+    <div class="post {{ '{{post.post_type}}' }} animated fadeInUpBig fadeOutDownBig">
+        {{ '{{#ifevent post.post_type}}' }}
+        <div class="date-box">
+            <div class="day">{{ '{{#getDay}}{{post.fields.date_time.value}}{{/getDay}}' }}</div>
+            <div class="month">{{ '{{#getMonth}}{{post.fields.date_time.value}}{{/getMonth}}' }}</div>
+        </div>
+        {{ '{{/ifevent}}' }}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="featured-image" title="{{ '{{post.post_title}}' }}" style="background-image: url({{ '{{post.featured_image}}' }});"></div>
+            </div>
+            <div class="col-md-6">
+                <h2><a title="{{ '{{post.post_title}}' }}" href="{{ '{{post.post_url}}' }}">{{ '{{post.post_title}}' }}</a></h2>
+                {{ '{{#ifevent post.post_type}}' }}
+                <h3>{{ '{{#formatEventDate}}{{post.fields.date_time.value}}{{/formatEventDate}}' }} <span class="time">{{ '{{#formatEventTime}}{{post.fields.date_time.value}}{{/formatEventTime}}' }} </span></h3>
+                {{ '{{/ifevent}}' }}
+                <p class="excerpt">{{ '{{#excerpt}}{{post.post_excerpt}}{{/excerpt}}' }}</p>
+                {{ '{{#ifevent post.post_type}}' }}
+                <a href="{{ '{{post.post_url}}' }}" title="Learn More" class="button small">Learn More</a>
+                {{ '{{/ifevent}}' }}
+
+                {{ '{{#ifplace post.post_type}}' }}
+                    {{ '{{#if post.address_title}}' }}
+                    <a href="{{ 'https://www.google.com/maps/search/?api=1&query={{post.address_title}}+{{post.address_street}}+{{post.address_city}}+{{post.address_state}}' }}"
+                        class="address" title="{{ '{{post.address_title}}' }}" target="_blank">
+                        
+                        <div class="title">{{ '{{post.address_title}}' }}</div>
+                        
+                        <div class="detail">{{ '{{post.address_street}}' }},<br>{{ '{{post.address_city}}' }}, {{ '{{post.address_state}}' }}
+                            {{ '{{post.address_zip}}' }}</div>
+                    </a>
+                    {{ '{{/if}}' }}
+                {{ '{{/ifplace}}' }}
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="map-popup-template" type="text/x-handlebars-template">
+    <div class="title">{{ '{{post.post_title}}' }}</div>
+    <a href="{{ '{{post.post_url}}' }}" title="Learn More" class="button small">Learn More</a>
+</script>
+
+<script id="map-post-template" type="text/x-handlebars-template">
+    <div class="post {{ '{{post.post_type}}' }} fadeInUpBig fadeOutDownBig animated">
+        <div class="featured-image" title="{{ '{{post.post_title}}' }}" style="background-image: url({{ '{{post.featured_image}}' }});"><a href="{{ '{{post.post_url}}' }}"></a></div>
+            <div class="bottom">
+                <h2><a href="{{ '{{post.post_url}}' }}">{{ '{{post.post_title}}' }}</a></h2>
+                <a href="{{ '{{post.post_url}}' }}" title="Learn More" class="button small">Learn More</a>
+            </div>
+    </div>
+
+</script>
+
+{% verbatim %}
+<script id="big-post-left-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col-lg-12 big-left post {{ post.post_type }} animated">
+            <div class="row">
+                <div class="col-md-6 col-8 left">
+                    <h2><a title="{{ post.post_title }}" href="{{ post.post_url }}">{{ post.post_title }}</a></h2>
+                    <p class="excerpt">{{#excerpt}}{{ post.post_excerpt }}{{/excerpt}}</p>
+                    <a href="{{ post.post_url }}" title="Read More" class="read-more">Read More</a>
+                </div>
+                <div class="col-md-6 right">
+                    {{#ifevent post.post_type }}
+                    <div class="date-box">
+                        <div class="day">{{#getDay}}{{ post.fields.date_time.value }}{{/getDay}}</div>
+                        <div class="month">{{#getMonth}}{{ post.fields.date_time.value }}{{/getMonth}}</div>
+                    </div>
+                    {{/ifevent}}
+                    <div class="featured-image" title="{{ post.post_title }}"><a href="{{post.post_url}}"><img class="parallax" src="{{ post.featured_image }}" alt="{{ post.featured_image.alt }}"></a></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script id="big-post-right-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col-lg-12 big-right post {{ post.post_type }} animated">
+            <div class="row">
+                <div class="col-lg-9 left">
+                    {{#ifevent post.post_type }}
+                    <div class="date-box">
+                        <div class="day">{{#getDay}}{{ post.fields.date_time.value }}{{/getDay}}</div>
+                        <div class="month">{{#getMonth}}{{ post.fields.date_time.value }}{{/getMonth}}</div>
+                    </div>
+                    {{/ifevent}}
+                    <div class="featured-image" title="{{ post.post_title }}"><a href="{{post.post_url}}"><img class="parallax" src="{{ post.featured_image }}" alt="{{ post.featured_image.alt }}"></a></div>
+                </div>
+                <div class="col-lg-5 right">
+                    <h2><a title="{{ post.post_title }}" href="{{ post.post_url }}">{{ post.post_title }}</a></h2>
+                    <p class="excerpt">{{#excerpt}}{{ post.post_excerpt }}{{/excerpt}}</p>
+                    <a href="{{ post.post_url }}" title="Read More" class="read-more">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script id="big-post-center-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col-lg-12 big-center post {{ post.post_type }} animated" title="{{ post.post_title }}" data-bg="{{ post.featured_image }}">
+            <div class="parallax-box"><img class="parallax" src="{{ post.featured_image }}" alt="{{ post.featured_image.alt }}"></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10 d-none d-md-block">
+                        <div class="inner">
+                            {{#ifevent post.post_type }}
+                            <div class="date-box">
+                                <div class="day">{{#getDay}}{{ post.fields.date_time.value }}{{/getDay}}</div>
+                                <div class="month">{{#getMonth}}{{ post.fields.date_time.value }}{{/getMonth}}</div>
+                            </div>
+                            {{/ifevent}}
+                            <h2><a title="{{ post.post_title }}" href="{{ post.post_url }}">{{ post.post_title }}</a></h2>
+                            <p class="excerpt">{{#excerpt}}{{ post.post_excerpt }}{{/excerpt}}</p>
+                            <a title="Read More" href="{{ post.post_url }}"  class="read-more">Read More</a>
+                        </div>
+                        
+                    </div>
+            
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-12 d-md-none big-center-mobile post animated">
+            <div class="inner">
+                <h2><a href="{{ post.post_url }}" title="{{ post.post_title }}">{{ post.post_title }}</a></h2>
+                <p class="excerpt">{{#excerpt}}{{post.post_excerpt}}{{/excerpt}}</p>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script id="big-post-last-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col-lg-12 big-last post {{ post.post_type }} animated" title="{{ post.post_title }}" data-bg="{{ post.featured_image }}">
+            <div class="parallax-box"><img class="parallax" src="{{ post.featured_image }}" alt="{{ post.featured_image.alt }}"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5 offset-md-6 d-none d-md-block left">
+                        <div class="inner">
+                            {{#ifevent post.post_type }}
+                            <div class="date-box">
+                                <div class="day">{{#getDay}}{{ post.fields.date_time.value }}{{/getDay}}</div>
+                                <div class="month">{{#getMonth}}{{ post.fields.date_time.value }}{{/getMonth}}</div>
+                            </div>
+                            {{/ifevent}}
+                            <h2><a title="{{ post.post_title }}" href="{{ post.post_url }}">{{ post.post_title }}</a></h2>
+                            <p class="excerpt">{{#excerpt}}{{ post.post_excerpt }}{{/excerpt}}</p>
+                            <a title="Read More" href="{{ post.post_url }}" class="read-more">Read More</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-12 d-md-none big-last-mobile post animated">
+            <div class="inner">
+                <h2><a title="{{ post.post_title }}" href="{{ post.post_url }}">{{ post.post_title }}</a></h2>
+                <p class="excerpt">{{#excerpt}}{{ post.post_excerpt }}{{/excerpt}}</p>
+            </div>
+            
+        </div>
+    </div>
+    
+</script>
+
+<script id="sides-post-template" type="text/x-handlebars-template">
+    <div class="col-lg-{{ size }} post sides {{ post.post_type }} animated">
+        <div class="row">
+            <div class="col-md-12 top">
+                {{#ifevent post.post_type}}
+                    <div class="date-box">
+                        <div class="day">{{#getDay}}{{ post.fields.date_time.value }}{{/getDay}}</div>
+                        <div class="month">{{#getMonth}}{{ post.fields.date_time.value }}{{/getMonth}}</div>
+                    </div>
+                {{/ifevent}}
+                <div class="featured-image"><a href="{{post.post_url}}"><img class="parallax" src="{{ post.featured_image }}" alt="{{ post.featured_image.alt }}"></a></div>
+                
+            </div>
+            <div class="col-lg-9 offset-lg-1 bottom">
+                <h2><a title="{{ post.post_title }}" href="{{ post.post_url }}">{{ post.post_title }}</a></h2>
+                <p class="excerpt">{{#excerpt}}{{ post.post_excerpt }}{{/excerpt}}</p>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="posts-slider-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="posts-slider-wrap">
+            <div class="posts-slider container post animated">
+                {{#each slide}}
+                <div class="slide container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="image-box">
+                                {{#ifevent post_type}}
+                                        <div class="date-box">
+                                            <div class="day">{{#getDay}}{{ fields.date_time.value }}{{/getDay}}</div>
+                                            <div class="month">{{#getMonth}}{{ fields.date_time.value }}{{/getMonth}}</div>
+                                        </div>
+                                    {{/ifevent}}
+                                <a href="{{post_url}}" title="{{ post.post_title }}" class="image" style="background-image: url({{featured_image}});">
+                                    
+                                </a>
+                            </div>
+                            <div class="content">
+                                <h2><a title="{{ post.post_title }}" href="{{ post_url }}">{{ post_title }}</a></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</script>
+{% endverbatim %}
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    var CATEGORY = "{{ post.category.category }}";
+</script>
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js" integrity="sha256-H3cjtrm/ztDeuhCN9I4yh4iN2Ybx/y1RM7rMmAesA0k=" crossorigin="anonymous"></script> #}
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/datepicker.min.js" integrity="sha256-0prQxFtdWQNa3vW5JDMbvbBp6ehKzf9UIWqFGZIWPPE=" crossorigin="anonymous" defer></script> #}
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/i18n/datepicker.en.min.js" integrity="sha256-RbE9ux8UbaKexk/+aT9XkZ8tcUWg3yw/3XE/S8iW7eI=" crossorigin="anonymous" defer></script> #}
+{# <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script> #}
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous" defer></script> #}
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/5.1.0/simplebar.min.js" integrity="sha256-hFddD6XMIwFba4ITQjpv5WWE557w6O0w9RRfmGjIz4k=" crossorigin="anonymous" defer></script> #}
+{# <script src="{{ site.theme.link }}/static/js/plugins/jam-parallax.js"></script> #}
+
+<!-- MapBox -->
+{# <link href="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" /> #}
+{# <script src="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js" defer></script> #}
+{# <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script> #}
+{# <script src="{{ site.theme.link }}/static/js/lakenona/home.min.js"></script> #}
+
+{% endblock %}

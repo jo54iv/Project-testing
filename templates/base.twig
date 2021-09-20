@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <!-- Meta -->
+        {% block meta %}
+
+        {% endblock %}
+        <meta name="theme-color" content="#fafafa">
+
+        <!-- Fav Icon(s) -->
+        <link rel="manifest" href="{{ site.theme.link }}/static/site.webmanifest">
+        <link rel="apple-touch-icon-precomposed" sizes="57x57"
+            href="{{ site.theme.link }}/static/fav/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114"
+            href="{{ site.theme.link }}/static/fav/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72"
+            href="{{ site.theme.link }}/static/fav/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144"
+            href="{{ site.theme.link }}/static/fav/apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="60x60"
+            href="{{ site.theme.link }}/static/fav/apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="120x120"
+            href="{{ site.theme.link }}/static/fav/apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="76x76"
+            href="{{ site.theme.link }}/static/fav/apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="152x152"
+            href="{{ site.theme.link }}/static/fav/apple-touch-icon-152x152.png" />
+        <link rel="icon" type="image/png" href="{{ site.theme.link }}/static/fav/favicon-72x72.png" sizes="196x196" />
+        <meta name="application-name" content="Lake Nona" />
+        <meta name="msapplication-TileColor" content="#FFFFFF" />
+        <meta name="msapplication-TileImage" content="{{ site.theme.link }}/static/fav/mstile-144x144.png" />
+        <meta name="msapplication-square70x70logo" content="{{ site.theme.link }}/static/fav/mstile-70x70.png" />
+        <meta name="msapplication-square150x150logo" content="{{ site.theme.link }}/static/fav/mstile-150x150.png" />
+        <!-- /Fav Icon(s) -->
+
+        <!-- CSS -->
+
+        {# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.min.css"
+            integrity="sha256-JPv5igMSqm2ztJxtjiup0q6NMWu7L3MbMn9FqyPgfdo=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+            integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" defer />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+            integrity="sha256-4hqlsNP9KM6+2eA8VUT0kk4RsMRTeS7QGHIM+MZ5sLY=" crossorigin="anonymous" defer />
+        <link rel="stylesheet" href="{{ site.theme.link }}/static/css/animate.min.css" /> #}
+        {# <link rel="stylesheet" href="{{ site.theme.link }}/static/dist/css/main.css"> #}
+
+        {% block css %}
+        {% endblock %}
+        <!-- /CSS -->
+        {{ function('wp_head') }}
+{# 
+        <script type="text/javascript" src="{{ site.theme.link }}/static/js/plugins/FileSaver.min.js"></script>
+        <script type="text/javascript" src="{{ site.theme.link }}/static/js/plugins/ics.min.js"></script> #}
+
+        <!-- Hotjar Tracking Code for https://www.lakenona.com/ -->
+        {# <script>
+            (function(h,o,t,j,a,r){
+                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                h._hjSettings={hjid:1172669,hjsv:6};
+                a=o.getElementsByTagName('head')[0];
+                r=o.createElement('script');r.async=1;
+                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                a.appendChild(r);
+            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        </script> #}
+
+    </head>
+
+    <body id="{% block body_id %}{% endblock %}" class="{{ body_class }} {% block body_class %}{% endblock %}" data-template="base.twig">
+        {%  include "global/nav.twig" %}
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        {%  include "global/footer.twig" %}
+
+        <script>
+            const STATIC_URL = '{{ site.theme.link }}/static/';
+            const AJAX_URL = '{{ function("admin_url", "admin-ajax.php") }}';
+            const AJAX_NONCE = '{{ function("wp_create_nonce", "lake_nona_tavistock_321") }}';
+        </script>
+        {# <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> #}
+        {# <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha256-NXRS8qVcmZ3dOv3LziwznUHPegFhPZ1F/4inU7uC8h0=" crossorigin="anonymous"></script> #}
+        {# <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script> #}
+        {# <script src="{{ site.theme.link }}/static/dist/js/lakenona/global.js"></script> #}
+        {% block js %}
+
+        {% endblock %}
+
+        {{ function('wp_footer') }}
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-31219942-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-31219942-1');
+        </script>
+        
+        <!-- AddThis -->
+        <script async defer src="https://s7.addthis.com/js/300/addthis_widget.js#async=1" type="text/javascript"></script>
+        <script>
+            var addthis_config = { services_compact: 'print,mailto' }
+        </script>
+        <script>
+            // Call this function once the rest of the document is loaded
+            function loadAddThis() { addthis.init() }
+        </script>
+    </body>
+
+</html>

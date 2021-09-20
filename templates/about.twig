@@ -1,0 +1,102 @@
+{% extends "base.twig" %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body_id %}about{% endblock %}
+
+{% block content %}
+<header class="banner" title="Header">
+<img src="{{post.thumbnail.src}}" srcset="{{post.thumbnail.srcset}}" class="image" />
+</header>
+
+<section class="tavistock">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-xl-8 col-lg-11">
+				<div class=" about-wrap">
+					<div class="title text-left text-lg-center">{{ post.meta('tavistock').title }}</div>
+					{{ post.meta('tavistock').message }}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% if Image(post.banner).src %}
+<section class="banner" title="Banner">
+	<img src="{{ Image(post.banner).src }}" srcset="{{ Image(post.banner).srcset }}" class="image" />
+</section>
+{% endif %}
+
+<section class="tavistock">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-xl-8 col-lg-11">
+				<div class=" about-wrap">
+					<div class="title text-left text-lg-center">{{ post.meta('lake_nona').title }}</div>
+					{{ post.meta('lake_nona').message }}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="information">
+	<div class="container">
+		<div class="row justify-content-center align-items-center">
+			<div class="col-lg-3 text-center">
+				<div class="contact-title">{{ post.meta('information').contact_title }}</div>
+				{% if post.meta('information').contact_link.url %}
+				<a href="{{ post.meta('information').contact_link.url }}"
+				   class="link"
+				   title="{{ post.meta('information').contact_link.title }}"
+				   target="{{ post.meta('information').contact_link.target ? post.meta('information').contact_link.target : '_self' }}">
+					<button
+						name="{{ post.meta('information').contact_link.title }}"
+						class="button live">
+						{{ post.meta('information').contact_link.title }}
+					</button>
+				</a>
+				{% endif %}
+			</div>
+
+			<div class="col-lg-5">
+				<div class="center-wrap">
+					<div class="title">{{post.meta('information').title}}</div>
+					<ul class="contacts">
+						<li class="address">
+							<div class="contact">
+									<a title="{{post.meta('information').address.title}}" href="https://www.google.com/maps/search/?api=1&query={{post.meta('information').address.title}}+{{post.meta('information').address.street}}+{{post.meta('information').address.city}}+{{post.meta('information').address.state}}" target="_blank">
+									{{post.meta('information').address.street}}<br><span>{{post.meta('information').address.city}},
+										{{post.meta('information').address.state}},
+										{{post.meta('information').address.country}}</span></a></div>
+						</li>
+						<li class="phone">
+							<div class="contact">
+								<a title="{{post.meta('information').phone}}" href="tel:+{{post.meta('information').phone}}">{{post.meta('information').phone}}</a>
+							</div>
+						</li>
+						<li class="mail">
+							<div class="contact">
+								<a title="{{post.meta('information').email}}" href="mailto:{{post.meta('information').email}}">{{post.meta('information').email}}</a>
+							</div>
+						</li>
+						<li class="clock">
+							<div class="contact">{{post.meta('information').hours}}</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

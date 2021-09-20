@@ -1,0 +1,6 @@
+<section id="{{block['id']}}" class="block-author">
+	{% if fields.author %}
+	<h2>By {{ fields.author }}</h2>
+	{% endif %}
+	<h4>{{ post.date("F d, Y") }}</h4>
+</section>

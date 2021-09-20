@@ -1,0 +1,18 @@
+
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="pt-5 mt-5 container post-type-{{post.post_type}}" id="post-{{post.ID}}">
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<div class="heading">
+				<h1 class="uppercase">404 Error</h1>
+				<div class="intro text-center">Sorry, we couldn't find what you're looking for.</div>
+			</div>
+			<div class="article-body text-center mt-5">
+				<a href="/" alt="Return Home" name="Return Home" class="button">Return Home</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

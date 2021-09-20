@@ -1,0 +1,65 @@
+<nav class="{% block nav_class %}{% endblock %}">
+    <a href="{{site.link}}" title="{{ site.title }}" class="logo">{{ option.logo.url|contents }}</a>
+    {% if is_category_template is same as('category.php')  %}
+    <div class="category-bar animated fadeInDown fadeOutUp invisible">
+    {% else %}
+    <div class="category-bar animated fadeInDown">
+    {% endif %}
+        <div class="wrap">
+            <ul>
+                <div class="active-bar"></div>
+                <li data-cat="discover"><a href="{{ site.link }}">Discover</a></li>
+                {% for category in post_categories %}
+                    {% if category.slug != "uncategorized" %}
+                        <li data-cat="{{category.slug}}"><a href="{{ site.link }}/{{category.slug }}">{{category.name}}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>	
+    </div>
+
+    <div class="search-box">
+        <img class="search-icon" title="Search Icon" src="{{ site.theme.link }}/static/img/global/icon-search.png" alt="Search Icon">
+        <form action="/" autocomplete="off">
+            <div class="input-box">
+                <input aria-label="Search" id="search-input" type="text" name="s">
+                <i class="clear-search fal fa-times"></i>
+            </div>
+        </form>
+        <div id="search-results"></div>
+    </div>
+
+    <button name="Menu" class="hamburger hamburger--spin" type="button">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <div class="menu-wrap">
+        <svg id="close-menu" xmlns="http://www.w3.org/2000/svg" width="21" height="21" stroke="#005776" fill="none" fill-rule="evenodd"><rect x=".5" y=".5" width="26.125" height="1" rx=".5" transform="matrix(.707107 .707107 -.707107 .707107 1.737437 .5)" fill="#005776"/><rect x=".5" y=".5" width="26.125" height="1" rx=".5" transform="matrix(.707107 -.707107 .707107 .707107 .5 19.680271)"/></svg>
+        <ul class="menu">
+            {% for item in main_menu.items %}                    
+                {% if '?' in item.link %}
+                {% else %}
+                <li class="nav-main-item {{ item.classes|join(' ') }}">
+                    <a class="nav-main-link" href="{{ item.link }}">{{ item.title }}</a>
+                </li>                    
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <div class="menu-footer">
+            <img title="Lake Nona Logo" class="logo d-sm-none" src="{{option.logo.url}}" alt="Lake Nona Logo">
+            <div class="copyright">© LAKE NONA {{ now|date('Y') }}</div>
+            {% if option.footer.social|length > 0 %}
+            <div class="social d-none d-sm-block">
+                {% for item in option.footer.social %}
+                <a title="{{ item.title }}" href="{{item.link.url}}"
+                    target="{{ item.link.target ? item.link.target : '_self' }}">{{item.icon.url|contents}}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div id="nav-overlay"></div>
+</nav>
+

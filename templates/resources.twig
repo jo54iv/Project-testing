@@ -1,0 +1,67 @@
+{% extends "base.twig" %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body_id %}resources{% endblock %}
+
+{% block content %}
+
+<header class="banner" title="Header">
+<img src="{{post.thumbnail.src}}" srcset="{{post.thumbnail.srcset}}" class="image" />
+</header>
+
+<section class="intro">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="heading">
+					<h1>{{post.title}}</h1>
+					<div class="message">{{ post.intro }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="videos">
+	<div class="container">
+		<div class="row justify-content-center">
+			{% for video in post.meta('videos') %}
+			<div class="col-md-6 video">
+				<h2>{{video.title}}</h2>
+				<div class="wp-block-embed__wrapper">{{video.video}}</div>
+				
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+<section class="downloads">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-12">
+					<h2>Downloads</h2>
+				</div>
+				{% for download in post.meta('downloads') %}
+				<div class="col-md-8">
+					<div class="download">
+						<div class="title">{{download.title}}</div>
+						<a title="Download" href="{{ download.file }}" target="_blank">Download</a>
+					</div>
+
+					
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

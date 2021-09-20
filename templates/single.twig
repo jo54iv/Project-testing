@@ -1,0 +1,133 @@
+{% extends "base.twig" %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+
+<header class="{{ post.get_field('post_header').images|length > 0 ? 'push' : 'banner'}}">
+	<div class="slider">
+		{% if Image(post.thumbnail).src %}
+		<div class="slide">
+			<img alt="{{ Image(post.thumbnail).alt}}"  srcset="{{Image(post.thumbnail).srcset}}" class="image" />
+		</div>
+		{% endif %}
+		{% for image in post.get_field('post_header').images %}
+		<div class="slide">
+			<img alt="{{ Image(image).alt }}"  srcset="{{Image(image).srcset}}" class="image" />
+		</div>
+		{% endfor %}
+	</div>
+</header>
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-xl-8 col-lg-11">
+			<div class="content-wrap">
+					{{post.content}}
+			</div>
+
+			<div class="post-social">
+				<span class="title">SHARE:</span>
+
+				<a title="{{ post.title }}" class="addthis_button_facebook" addthis:url="{{post.link}}"
+					addthis:title="{{post.title}}">{{icon_facebook}}</a>
+				<a title="{{ post.title }}" class="addthis_button_twitter" addthis:url="{{post.link}}"
+					addthis:title="{{post.title}}">{{icon_twitter}}</a>
+				<a title="{{ post.title }}" class="addthis_button_compact" addthis:url="{{post.link}}"
+					addthis:title="{{post.title}}">{{icon_share}}</a>
+			</div>
+
+			<div class="post-tags">
+				<div class="title">TAGS:</div>
+				<div class="list">
+					{% for tag in post.tags %}
+
+					<a title="{{ tag }}" href="{{tag.link}}" class="tag" data-title="{{tag}}" data-slug="{{tag.slug}}">{{tag}}</a>
+					{% endfor %}
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="related" class="container-fluid overflow-hidden">
+	<div class="row justify-content-center">
+		<div class="related-title">Related Content</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div id="results" class="d-flex flex-wrap">
+
+			</div>
+			<button id="load-more" name="Load More" title="Load More" class="button d-none">Load More</button>
+		</div>
+	</div>
+</div>
+
+<script id="big-post-template" type="text/x-handlebars-template">
+	<div class="col-lg-12 big post {{ '{{post.post_type}}' }} animated">
+		<div class="row">
+			<div class="col-md-6 col-12 left order-lg-1 order-2">
+				<h2><a title="{{ '{{post.post_title}}' }}" href="{{ '{{post.post_url}}' }}">{{ '{{post.post_title}}' }}</a></h2>
+				<p class="excerpt">{{ '{{#excerpt}}{{post.post_excerpt}}{{/excerpt}}' }}</p>
+				<a title="Read More" href="{{ '{{post.post_url}}' }}" class="read-more">Read More</a>
+			</div>
+			<div class="col-lg-6 right order-lg-2 order-1">
+				<div class="featured-image">
+					<img class="parallax" src="{{ '{{post.featured_image}}' }}" alt="{{ '{{post.featured_image.alt}}' }}">
+					<a title="{{post.post_title}}" href="{{ '{{post.post_url}}' }}"></a>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+  </script>
+
+<script id="left-post-template" type="text/x-handlebars-template">
+	<div class="col-lg-7 left post {{ '{{post.post_type}}' }} animated">
+		<div class="row">
+			<div class="col-md-12 top">
+				<div class="featured-image" title="{{post.post_title}}" >
+					<img class="parallax" src="{{ '{{post.featured_image}}' }}" alt="{{ '{{post.featured_image.alt}}' }}">
+					<a href="{{ '{{post.post_url}}' }}"></a>
+				</div>
+			</div>
+			<div class="col-lg-11 mx-auto bottom">
+				<h2><a title="{{post.post_title}}" href="{{ '{{post.post_url}}' }}">{{ '{{post.post_title}}' }}</a></h2>
+				<p class="excerpt">{{ '{{#excerpt}}{{post.post_excerpt}}{{/excerpt}}' }}</p>
+			</div>
+		</div>
+	</div>
+  </script>
+
+  <script id="right-post-template" type="text/x-handlebars-template">
+	<div class="col-lg-5 right post {{ '{{post.post_type}}' }} animated">
+		<div class="row">
+			<div class="col-md-12 top">
+				<div title="{{post.post_title}}" class="featured-image">
+					<img class="parallax" src="{{ '{{post.featured_image}}' }}" alt="{{ '{{post.featured_image.alt}}' }}">
+					<a title="{{post.post_title}}" href="{{ '{{post.post_url}}' }}"></a>
+				</div>
+			</div>
+			<div class="col-lg-11 mx-auto bottom">
+				<h2><a title="{{post.post_title}}" href="{{ '{{post.post_url}}' }}">{{ '{{post.post_title}}' }}</a></h2>
+				<p class="excerpt">{{ '{{#excerpt}}{{post.post_excerpt}}{{/excerpt}}' }}</p>
+			</div>
+		</div>
+	</div>
+  </script>
+
+{% endblock %}
+
+{% block js %}
+<script>
+	var POST_ID = {{ post.id }};
+</script>
+{# <script src="{{ site.theme.link }}/static/js/plugins/jam-parallax.js"></script> #}
+{# <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script> #}
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script> #}
+{# <script src="{{ site.theme.link }}/static/dist/js/lakenona/post.js"></script> #}
+{% endblock %}

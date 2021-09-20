@@ -1,0 +1,15 @@
+<section id="{{block['id']}}" class="block-intro-event">
+	<div class="date-box d-none d-lg-block">
+		<div class="day">{{ post.date_time|date("d") }}</div>
+		<div class="month">{{ post.date_time|date("M") }}</div>
+	</div>
+	<div class="intro">
+		<h1>{{ post.title }}</h1>
+		<div class="date-time">{{ post.date_time|date("l F d") }} <span>{{ post.date_time|date("g:ia") }}</span></div>
+		{% if post.meta('link').url %}
+		<a title="{{ post.meta('link').title }}" href="{{ post.meta('link').url }}" class="link" target="{{ post.meta('link').target ? post.meta('link').target : '_self' }}">
+			<button name="{{ post.meta('link').title }}" class="button">{{ post.meta('link').title }}</button>
+		</a>
+		{% endif %}
+	</div>
+</section>

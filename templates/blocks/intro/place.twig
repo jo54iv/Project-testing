@@ -1,0 +1,67 @@
+<section id="{{block['id']}}" class="block-intro-place">
+    <div class="intro">
+        <h1>{{ post.title }}</h1>
+        {{ fields.message }}
+        <div class="info row">
+            {% if fields.social and  fields.link.url%}
+            <div class="col-6 d-none d-lg-block">
+                {% if fields.social|length > 0 %}
+                <div class="social">
+                    {% for item in fields.social %}
+                    <a title="{{ item.link.url }}" href="{{item.link.url}}" target="_blank">{{item.icon.url|contents}}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if fields.link.url %}
+                <a href="{{fields.link.url}}" target="_blank"
+                    class="link">{{icon_web}}<span>{{fields.link.title}}</span></a>
+                {% endif %}
+            </div>
+            
+            <div class="col-6 d-none d-lg-block">
+                <a title="{{fields.address.title}}" href="https://www.google.com/maps/search/?api=1&query={{fields.address.title}}+{{fields.address.street}}+{{fields.address.city}}+{{fields.address.state}}"
+                    class="address" target="_blank">
+                    {% if fields.address.title %}
+                    <div class="title">{{fields.address.title}}</div>
+                    {% endif %}
+                    <div class="detail">{{fields.address.street}},{% if fields.address.street_two %}<br>{{fields.address.street_two}},{% endif %}<br>{{fields.address.city}}, {{fields.address.state}}
+                        {{fields.address.zip}}</div>
+                </a>
+            </div>
+            {% else %}
+                <div class="col d-none d-lg-block text-center">
+                    <a title="{{fields.address.title}}" href="https://www.google.com/maps/search/?api=1&query={{fields.address.title}}+{{fields.address.street}}+{{fields.address.city}}+{{fields.address.state}}"
+                        class="address text-left" style="display:inline-block" target="_blank">
+                        {% if fields.address.title %}
+                        <div class="title">{{fields.address.title}}</div>
+                        {% endif %}
+                        <div class="detail">{{fields.address.street}},{% if fields.address.street_two %}<br>{{fields.address.street_two}},{% endif %}<br>{{fields.address.city}}, {{fields.address.state}}
+                            {{fields.address.zip}}</div>
+                    </a>
+                </div>
+            {% endif %}
+            <div class="col-12 d-block d-lg-none text-center">
+                {% if fields.link.url %}
+                <a title="{{fields.link.title}}" href="{{fields.link.url}}" target="{{ fields.link.target ? fields.link.target : '_self' }}"
+                    class="link">{{icon_web}}<span>{{fields.link.title}}</span></a>
+                {% endif %}
+                <a title="{{fields.link.title}}" href="https://www.google.com/maps/search/?api=1&query={{fields.address.title}}+{{fields.address.street}}+{{fields.address.city}}+{{fields.address.state}}"
+                    class="address" target="_blank">
+                    {% if fields.address.title %}
+                    <div class="title">{{fields.address.title}}</div>
+                    {% endif %}
+                    <div class="detail">{{fields.address.street}},{% if fields.address.street_two %}<br>{{fields.address.street_two}},{% endif %}<br>{{fields.address.city}}, {{fields.address.state}}
+                        {{fields.address.zip}}</div></a>
+                    {% if fields.social|length > 0 %}
+                    <div class="social">
+                        {% for item in fields.social %}
+                            <a title="{{ item.link.url }}" href="{{item.link.url}}" target="_blank">{{item.icon.url|contents}}</a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </a>
+
+            </div>
+        </div>
+    </div>
+</section>

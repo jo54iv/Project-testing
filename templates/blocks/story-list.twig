@@ -1,0 +1,14 @@
+{% if fields.list|length > 0 %}
+<section id="{{block['id']}}" class="block-story-list">
+
+	{% for item in fields.list %}
+	<div class="item">
+		{% if item.image %}
+		<img title="{{item.image.alt}}" src="{{item.image.url}}" alt="{{item.image.alt}}">
+		{% endif %}
+		<div class="title"><span>{{loop.index < 10 ? '0'~loop.index : loop.index}}.</span> {{item.title}}</div>
+		{{item.message}}
+	</div>
+	{% endfor %}
+</section>
+{% endif %}
